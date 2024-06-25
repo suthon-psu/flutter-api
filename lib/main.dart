@@ -23,6 +23,18 @@ Future<List<Link>> fetchLinks() async {
   return result.data.map<Link>(Link.fromJson).toList();
 }
 
+class LinkCard extends StatelessWidget {
+  final Link link;
+  const LinkCard({super.key, required this.link});
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+      link.imageUrl,
+      fit: BoxFit.cover,
+    );
+  }
+}
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
@@ -37,7 +49,9 @@ class MainApp extends StatelessWidget {
               if (snapshot.hasData) {
                 return GridView.count(
                   crossAxisCount: 2,
-                  children: const [],
+                  children: (snapshot.data ?? [])
+                      .map<LinkCard>((link) => LinkCard(link: link))
+                      .toList(),
                 );
               } else {
                 return const Center(
