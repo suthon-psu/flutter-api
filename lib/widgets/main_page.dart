@@ -1,4 +1,5 @@
 import 'package:api/models/link.dart';
+import 'package:api/widgets/app_web_page.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,9 @@ class LinkCard extends StatelessWidget {
         if (link.link == null) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('ยังไม่พร้อมให้บริการ')));
+        } else {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => AppWebPage(link: link)));
         }
       },
       child: Image.network(

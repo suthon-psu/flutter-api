@@ -1,5 +1,6 @@
 import 'package:api/models/link.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class AppWebPage extends StatelessWidget {
   final Link link;
@@ -7,7 +8,13 @@ class AppWebPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      body: InAppWebView(
+          initialUrlRequest:
+              URLRequest(url: WebUri(link.link ?? 'https://www.google.com'))),
+      appBar: AppBar(
+        title: Text(link.title),
+      ),
+    );
   }
 }
