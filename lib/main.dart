@@ -28,10 +28,27 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text('Hello World!'),
+          child: FutureBuilder(
+            future: fetchLinks(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GridView.count(
+                  crossAxisCount: 2,
+                  children: const [],
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ),
+        appBar: AppBar(
+          title: const Text('App'),
         ),
       ),
     );
